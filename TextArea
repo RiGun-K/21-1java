@@ -1,0 +1,49 @@
+import javax.swing.event.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+// 텍스트 영역은 입력이 가능한 한줄의 텍스트를 생성하는데에, 한줄의 텍스트가 아닌 여러 줄의 텍스트를 생성할수 있다.
+// 한줄의 텍스트는 텍스트 필드를 이용하자.
+
+public class TextAreaDemo extends JFrame implements ActionListener {
+	private JTextField textField;
+	private JTextArea textArea;
+
+	public TextAreaDemo() {
+		this.setTitle("Text Area");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		textField = new JTextField(30);
+		textField.addActionListener(this);
+		
+		textArea = new JTextArea(10, 30);       // 10행 30 열의 텍스트 영역 생성
+		textArea.setEditable(false);
+		
+		this.add(textField, BorderLayout.NORTH);
+		this.add(textArea, BorderLayout.CENTER);
+		
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		
+		this.add(scrollPane, BorderLayout.CENTER);
+		
+		this.pack();
+		this.setVisible(true);
+	}
+	
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String text = textField.getText();        // 텍스트를 읽어서 영역에 추가한다.
+		textArea.append(text + "\n");             
+		
+		textField.selectAll();                    // 입력을 편하게 하기위해 필드에 있는 모든 텍스트를 선택한다.
+		textArea.setCaretPosition(textArea.getDocument().getLength());
+	}
+	
+	public static void main(String[] args) {
+		new TextAreaDemo();                      // 실행
+	}
+}
+
