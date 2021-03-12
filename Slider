@@ -1,0 +1,60 @@
+import javax.swing.event.*;
+import javax.swing.*;
+import java.awt.*;
+
+// 슬라이더(slider)는 사용자가 특정 범위 안에서 하나의 값을 선택할수 있는 컴포넌트,, 특히 사용자로 부터 
+// 일정 범위 안의 수치값을 입력받을때 사용. 슬라이더를 이용해 사용자의 원하는 수치값에 사진의 사이즈 등을 변경할수 있다.
+
+
+public class SliderDemo extends JFrame implements ChangeListener {
+
+	
+	static final int INIT_VALUE = 15;
+	private JButton OKBtn;
+	private JSlider slider;
+	private JButton btn;
+	
+	public SliderDemo() {
+		JPanel panel;
+		
+		this.setTitle("슬라이더 테스트입니다");
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+		panel = new JPanel();
+		JLabel label = new JLabel("슬라이더를 움직여보세요", SwingConstants.CENTER);
+		// label.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel.add(label);
+		
+    // 슬라이더 생성
+		slider = new JSlider(0, 30, INIT_VALUE);        // 슬라이더 범위값 0 ~ 30 으로 설정한다. ( 초기값 설정 (
+		slider.setMajorTickSpacing(10);                 // 큰 눈금 간격
+		slider.setMinorTickSpacing(1);                  // 작은 눈금 간격
+		slider.setPaintTicks(true);                     // 눈금 표시
+		slider.setPaintLabels(true);                    // 값을 레이블로 표시한다.
+		slider.addChangeListener(this);                 // 값이 변경될경우 이벤트를 받는다.
+		panel.add(slider);
+		
+		btn = new JButton(" ");
+		ImageIcon icon = new ImageIcon("dog.jpeg");     // 이미지 설정
+		btn.setIcon(icon);
+		btn.setSize(INIT_VALUE * 10, INIT_VALUE * 10);  // 사이즈 설정
+		panel.add(btn);
+		
+		this.add(panel);
+		this.setSize(300, 500);         
+		this.setVisible(true);
+}
+	
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			JSlider source = (JSlider) e.getSource();
+			if	(!source.getValueIsAdjusting()) { // when a knob drag ends
+				int value = source.getValue();
+				btn.setSize(value * 10, value * 10);
+			}       // 슬라이더 상태 변경시 호출설정,, 버튼크기 변경
+		}
+
+		public static void main(String[] args) {        // 실행
+			new SliderDemo();
+		}
+}
