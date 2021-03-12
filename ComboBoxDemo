@@ -1,0 +1,50 @@
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+
+// 콤보박스 경우에는 박스 하나가 아니라 여러 항목중 하나를 선택하는데 사용할수 있다. 이번에는 개, 사자, 호랑이 를 이용해서 만들어 보자.
+
+public class ComboBoxDemo extends JFrame implements ActionListener {
+	private JLabel label;
+	private JComboBox animalList;
+	
+	public ComboBoxDemo() {
+		this.setTitle("콤보 박스");        // 타이틀 설정
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.setSize(500, 400);           // 박스 사이즈
+		
+	String[] animals = { "dog", "lion", "tiger" };    // 생성자 호출후 항목 추가 
+	animalList = new JComboBox(animals);              // 콤보박스 생성 
+	animalList.setSelectedIndex(0);
+	animalList.addActionListener(this);
+	
+	label = new JLabel();
+	label.setHorizontalAlignment(SwingConstants.CENTER);
+	changePicture(animals[animalList.getSelectedIndex()]);    // 선택된 동물로 그림을 변경하는 작업
+	
+	this.add(animalList, BorderLayout.NORTH);
+	this.add(label, BorderLayout.CENTER);
+	this.setVisible(true);
+	}
+	
+	@Override                                                 // Override 
+		public void actionPerformed(ActionEvent e) {            // event 
+		
+		String name = (String) animalList.getSelectedItem();    // 사용자가 선택한 항목을 가져오게하는 getSelectedItem() 사용 
+		changePicture(name);
+	
+	}
+	
+	protected void changePicture(String name) {
+		ImageIcon icon = new ImageIcon(name + ".jpeg");       // "jpeg"파일에 해당하는 이미지 불러오기 
+		label.setIcon(icon);
+		
+		label.setText(null);
+		
+	}
+	
+	public static void main(String[] args) {                // 실행 
+		new ComboBoxDemo();
+	}
+
+}
