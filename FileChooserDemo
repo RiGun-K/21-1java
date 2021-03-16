@@ -1,0 +1,60 @@
+import javax.swing.*;
+import java.awt.event.*;
+import java.io.File;
+
+
+public class FileChooserDemo extends JFrame implements ActionListener {
+	private JButton openBtn, saveBtn;
+	JFileChooser fileChooser;
+	
+// JFileChooser 클래스 사용하여 모달(modal) 대화상자를 표시 모달이란 ) 대화상자가 끝나기 전까지는 모든 작업이 중지되는 것을 의미
+
+	public FileChooserDemo() {
+		this.setTitle("파일 선택기 테스트");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(250, 200);
+		fileChooser = new JFileChooser();     // 파일 선택기 생성
+		
+		JLabel label =  new JLabel("파일 선택기 컴포넌트 테스트입니다.");
+		openBtn = new JButton("파일 오픈");
+		openBtn.addActionListener(this);
+		
+		saveBtn = new JButton("파일 저장");
+		saveBtn.addActionListener(this);
+		
+		JPanel panel = new JPanel();
+		panel.add(label);
+		panel.add(openBtn);
+		panel.add(saveBtn);
+		
+		this.add(panel);
+		this.setVisible(true);
+		
+	}
+		@Override
+		public void actionPerformed(ActionEvent e) {                // "파일열기" 라는 버튼의 액션 이벤트 처리생성
+			if (e.getSource() == openBtn) {
+				int returnVal = fileChooser.showOpenDialog(this);       // 파일 선택기 대화상자를 연다.
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					File file = fileChooser.getSelectedFile();
+					System.out.println("open file:" + file.getAbsolutePath());
+					} else {
+						System.out.println("No file selected");
+					}
+			} else if (e.getSource() == saveBtn) {
+				int returnVal = fileChooser.showSaveDialog(this);
+				if(returnVal == JFileChooser.APPROVE_OPTION) {
+					File file = fileChooser.getSelectedFile();        // 파일에 대한 처리작업
+					System.out.println("save to " + file.getAbsolutePath());
+					} else {
+						System.out.println("Save Canceled...");       // 파일 선택이 사용자에 의해 취소되었음
+					}
+			}
+		}
+	
+	
+		
+		public static void main(String[] args) {
+			new FileChooserDemo();
+		}
+}
