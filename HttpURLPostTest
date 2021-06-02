@@ -1,0 +1,30 @@
+import java.net.*;
+import java.io.*;
+
+public class HttpURLPostTest {
+
+	public static void main(String[] args) throws Exception {		// 직접 하면 throws  아니면 throw
+		// TODO Auto-generated method stub
+		String site = "http://localhost:8080/test";
+		URL url = new URL(site);
+		
+		HttpURLConnection con = (HttpURLConnection)url.openConnection();
+		
+		con.setDoOutput(true);
+		con.setRequestMethod("POST");	// POST 방식
+		
+		con.setRequestProperty("content-type", "application/x-www-form-urlencoded");
+			
+		// ID : scpark 
+		// PW : 1111
+		
+		OutputStream stream = con.getOutputStream();
+		
+		OutputStreamWriter owriter = new OutputStreamWriter(stream, "UTF-8");
+		
+		PrintWriter writer = new PrintWriter(owriter);
+		
+		writer.println("id=scpark&pw=1111");
+	}
+
+}
