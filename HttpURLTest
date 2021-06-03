@@ -1,0 +1,23 @@
+import java.net.*;
+
+public class HttpURLTest {
+
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+		URL url = new URL("https//www.google.com/serach?g=java");
+		HttpURLConnection con = (HttpURLConnection)url.openConnection();
+		
+		con.setRequestMethod("GET");
+		con.setRequestProperty("User-Agent", "Mozilla/5.0");
+		
+		int responseCode = con.getResponseCode();
+		System.out.println("Response code: " + responseCode);
+		
+		
+		
+		// Get 방식 : 홈페이지에 쿼리까지 다 나오는 주소를 끌거오는것 
+		// 한글이 안 꺠지려면 READ를 열때 UTF-8로 설정해야 함 .
+		
+	}
+
+}
